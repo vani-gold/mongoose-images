@@ -63,7 +63,7 @@ http.listen(port, function () {
     console.log("Server started running at port: " + port)
  
     // [connect Mongo DB]
-    mongoClient.connect("mongodb+srv://management:management@management.l1ix1ja.mongodb.net/test?retryWrites=true", async function (error, client) {
+    mongoClient.connect("mongodb://localhost:27017", async function (error, client) {
     if (error) {
         console.error(error)
         return
