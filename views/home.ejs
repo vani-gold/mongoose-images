@@ -1,0 +1,46 @@
+<!-- home.ejs -->
+ 
+<form onsubmit="uploadImages()" enctype="multipart/form-data">
+    <input type="file" multiple accept="image/*" name="images" required />
+ 
+    <input type="submit" value="Upload images" />
+</form>
+<%for (let a = 0; a < images.length; a++) { %>
+    <img src="<%= images[a] %>" style="width: 10%;" />
+<% } %>
+
+<script>
+    function uploadImages() {
+        // prevent the form from reloading the page
+        event.preventDefault()
+ 
+        // get form tag
+        const form = event.target
+ 
+        // create form data object from <form>
+        const formData = new FormData(form)
+ 
+        // create AJAX object
+        const ajax = new XMLHttpRequest()
+ 
+        // 1st parameter = method, GET/POST
+        // 2nd parameter = path to server file
+        // 3rd parameter = asynchronous
+        ajax.open("POST", "/uploadImages", true)
+ 
+        // when status of request changes
+        ajax.onreadystatechange = function () {
+            // operation is completed
+            if (this.readyState == 4) {
+                // response from server is okay
+                if (this.status == 200) {
+                    // response from server
+                    console.log(this.responseText)
+                }
+            }
+        }
+ 
+        // send AJAX request
+        ajax.send(formData)
+    }
+</script>
